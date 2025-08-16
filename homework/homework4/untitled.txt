@@ -1,0 +1,25 @@
+3. Documentation
+
+Data Sources / URLs:  
+Source 1: https://en.wikipedia.org/wiki/List_of_S%26P_500_companies 
+Source 2: https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&apikey={api_key}&datatype=csv
+
+**Parameters (`params`):**  
+- `start_date = '2023-01-01'` – start of data extraction  
+- `end_date = '2025-08-15'` – end of data extraction  
+- `threshold_volume = 1_000_000` – filter for high trading volume  
+
+**Validation Logic:**  
+1. Check that all required columns exist: `['date', 'symbol', 'close', 'volume']`.  
+2. Ensure no duplicate entries for the same `symbol` and `date`.  
+3. Validate numeric columns (`close`, `volume`) are non-negative.  
+4. Confirm date values are within the specified range (`start_date` to `end_date`).  
+
+**Environment / Security:**  
+- `.env` file contains API keys or sensitive information. **Ensure it is not committed to Git.**  
+
+**Assumptions & Risks:**  
+- Data from external sources may be delayed or incomplete.  
+- API limits could restrict data fetching.  
+- Assumes `volume` thresholds are consistent across all stocks.  
+- Any missing values are handled by dropping or imputing—this could bias analysis.
